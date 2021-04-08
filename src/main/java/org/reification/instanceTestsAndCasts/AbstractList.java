@@ -1,6 +1,7 @@
 package org.reification.instanceTestsAndCasts;
 
 import java.util.AbstractCollection;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,4 +37,19 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
             return !it1.hasNext() && !it2.hasNext();
         } else return false;
     }
+
+    /*Non reifiable Casts An instance test against a type that is not reifiable is always an
+error. However, in some circumstances a cast to a type that is not reifiable is permitted.
+For example, the following method converts a collection to a list:*/
+    public static <T> List<T> asList(Collection<T> c)
+            throws InvalidArgumentException
+    {
+        if (c instanceof List<?>) {
+            return (List<T>)c;
+        } else throw new InvalidArgumentException("Argument not a list");
+    }
+    /*Compiling this code succeeds with no errors or warnings. The instance test is not in
+error because List<?> is a reifiable type. The cast does not report a warning because
+the source of the cast has type Collection<T>, and any object with this type that implements
+the interface List must, in fact, have type List<T>.*/
 }
