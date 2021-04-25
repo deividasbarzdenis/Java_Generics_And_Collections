@@ -1,4 +1,4 @@
-package org.reification.howToDefineArrayList;
+package org.reification.arrayCreation;
 
 public class ArrayCreation {
     /**
